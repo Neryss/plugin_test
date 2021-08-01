@@ -1,0 +1,9 @@
+main: pw.neryss.test.Main
+name: Test
+version: 0.0.1
+author: neryss
+
+commands:
+   hello:
+      usage: /<command>
+      description: test

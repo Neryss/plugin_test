@@ -11,3 +11,5 @@ commands:
       usage: /<command> [velocity]
       description: goes vroom
       aliases: lch
+   doctor:
+      usage: /<command>

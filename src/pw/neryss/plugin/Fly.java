@@ -7,8 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Fly implements CommandExecutor {
-
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		System.out.println("Entered function");
 		if (label.equalsIgnoreCase("hello")) {

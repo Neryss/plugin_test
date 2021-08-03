@@ -13,3 +13,5 @@ commands:
       aliases: lch
    doctor:
       usage: /<command>
+   boots:
+      usage: /<command>

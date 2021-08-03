@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,8 +24,16 @@ public class Boots implements CommandExecutor {
 				return true;
 			}
 			Player player = (Player)sender;
+			if (player.getInventory().firstEmpty() == -1) {
+				Location loc = player.getLocation();	
+				World world = player.getWorld();
+				world.dropItem(loc, getItem());
+				player.sendMessage(ChatColor.GOLD + "Boots dropped!");
+				return true;
+			}
 			player.getInventory().addItem(getItem());
 			player.sendMessage(ChatColor.BLUE + "You got something");
+			return true;
 		}
 		return false;
 	}

@@ -10,6 +10,7 @@ public class Main extends JavaPlugin {
 		System.out.println("Hello!");
 		this.getCommand("launch").setExecutor(new Fly());
 		this.getCommand("Doctor").setExecutor(new Heal());
+		this.getCommand("boots").setExecutor(new Boots());
 	}
 	
 	@Override

@@ -2,6 +2,7 @@ main: pw.neryss.plugin.Main
 name: Test
 version: 0.0.1
 author: neryss
+api-version: 1.17
 
 commands:
    hello:
@@ -14,4 +15,6 @@ commands:
    doctor:
       usage: /<command>
    boots:
+      usage: /<command>
+   starstaff:
       usage: /<command>

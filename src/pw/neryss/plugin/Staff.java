@@ -89,11 +89,14 @@ public class Staff implements CommandExecutor, Listener {
 	public void onLand(ProjectileHitEvent e) {
 		if (e.getEntityType() == EntityType.TRIDENT) {
 			if (e.getEntity().getShooter() instanceof Player) {
-				Player player = (Player)e.getEntity();
+				Player player = (Player)e.getEntity().getShooter();
 				if (list.contains(player.getName())) {
 					Location loc = e.getEntity().getLocation();
 					loc.setY(loc.getY() + 1);
-					loc.getWorld().spawnEntity(loc, EntityType.DROWNED);
+					for (int i = 0; i < 4; i++) {
+						loc.getWorld().spawnEntity(loc, EntityType.DROWNED);
+						loc.setX(loc.getX() + 1);
+					}
 				}
 			}
 		}

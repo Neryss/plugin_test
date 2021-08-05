@@ -13,6 +13,7 @@ public class Main extends JavaPlugin implements Listener {
 		this.getCommand("Doctor").setExecutor(new Heal());
 		this.getCommand("boots").setExecutor(new Boots());
 		this.getCommand("starstaff").setExecutor(new Staff());
+		this.getCommand("skull").setExecutor(new Skulls());
 		this.getServer().getPluginManager().registerEvents(new Boots(), this);
 		this.getServer().getPluginManager().registerEvents(new Staff(), this);
 	}

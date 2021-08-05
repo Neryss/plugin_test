@@ -18,3 +18,5 @@ commands:
       usage: /<command>
    starstaff:
       usage: /<command>
+   skull:
+      usage: /<command> [name]

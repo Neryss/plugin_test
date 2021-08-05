@@ -85,7 +85,7 @@ public class TeamsGui implements CommandExecutor, Listener {
 	
 	public void createInv() {
 		System.out.println("JE CREE INVENTAIRE");
-		inv = Bukkit.createInventory(null, 9, ChatColor.GREEN + "" + ChatColor.BOLD + "Select your team");
+		inv = Bukkit.createInventory(null, 9, ChatColor.GOLD + "" + ChatColor.BOLD + "Select your team");
 		ItemStack item = new ItemStack(Material.BLUE_CONCRETE);
 		ItemMeta meta = item.getItemMeta();
 		
@@ -99,7 +99,7 @@ public class TeamsGui implements CommandExecutor, Listener {
 		
 		// Red team
 		item.setType(Material.RED_CONCRETE);
-		meta.setDisplayName(ChatColor.BLUE + "BLUE TEAM");
+		meta.setDisplayName(ChatColor.RED + "RED TEAM");
 		item.setItemMeta(meta);
 		inv.setItem(1, item);
 		

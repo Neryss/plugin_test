@@ -12,6 +12,15 @@ public class Main extends JavaPlugin implements Listener {
 		// reloads
 		// plugin reload
 		System.out.println("Hello!");
+		initThis();
+	}
+	
+	@Override
+	public void onDisable() {
+		// shutdown and same as above
+	}
+	
+	public void	initThis() {
 		this.getCommand("launch").setExecutor(new Fly());
 		this.getCommand("Doctor").setExecutor(new Heal());
 		this.getCommand("boots").setExecutor(new Boots());
@@ -23,11 +32,5 @@ public class Main extends JavaPlugin implements Listener {
 		this.getServer().getPluginManager().registerEvents(new TeamsGui(), this);
 		t_gui = new TeamsGui();
 		t_gui.createInv();
-//		System.out.println(t_gui.inv.getItem(0).getItemMeta().getDisplayName());
-	}
-	
-	@Override
-	public void onDisable() {
-		// shutdown and same as above
 	}
 }

@@ -1,6 +1,6 @@
 main: pw.neryss.plugin.Main
 name: Test
-version: 0.0.1
+version: 0.1.0
 author: neryss
 api-version: 1.17
 

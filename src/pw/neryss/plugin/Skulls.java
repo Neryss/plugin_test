@@ -46,7 +46,7 @@ public class Skulls implements CommandExecutor {
 			item.setDurability((short) 3);
 		SkullMeta meta = (SkullMeta)item.getItemMeta();
 		meta.setOwner(name);
-		item.setItemMeta(meta);
+		item.setItemMeta (meta);
 		return (item);
 	}
 }

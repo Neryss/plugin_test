@@ -21,7 +21,7 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import net.md_5.bungee.api.ChatColor;
 
 public class TeamsGui implements CommandExecutor, Listener {
-	public Inventory inv;
+	public static Inventory inv;
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] aargs) {
 		if (label.equalsIgnoreCase("changeteam")) {
 			if (!(sender instanceof Player)) {
@@ -84,7 +84,7 @@ public class TeamsGui implements CommandExecutor, Listener {
 	}
 	
 	public void createInv() {
-		System.out.println("ALED JE SUIS LA");
+		System.out.println("JE CREE INVENTAIRE");
 		inv = Bukkit.createInventory(null, 9, ChatColor.GREEN + "" + ChatColor.BOLD + "Select your team");
 		ItemStack item = new ItemStack(Material.BLUE_CONCRETE);
 		ItemMeta meta = item.getItemMeta();

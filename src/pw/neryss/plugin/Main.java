@@ -1,9 +1,11 @@
 package pw.neryss.plugin;
+import org.bukkit.Material;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener {
+	private static TeamsGui t_gui;
 	@Override
 	public void	onEnable() {
 		// startup
@@ -19,8 +21,9 @@ public class Main extends JavaPlugin implements Listener {
 		this.getServer().getPluginManager().registerEvents(new Boots(), this);
 		this.getServer().getPluginManager().registerEvents(new Staff(), this);
 		this.getServer().getPluginManager().registerEvents(new TeamsGui(), this);
-		TeamsGui t_gui = new TeamsGui();
+		t_gui = new TeamsGui();
 		t_gui.createInv();
+//		System.out.println(t_gui.inv.getItem(0).getItemMeta().getDisplayName());
 	}
 	
 	@Override

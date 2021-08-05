@@ -22,10 +22,6 @@ import net.md_5.bungee.api.ChatColor;
 
 public class TeamsGui implements CommandExecutor, Listener {
 	public Inventory inv;
-	
-	public void onEnable () {
-		createInv();
-	}
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] aargs) {
 		if (label.equalsIgnoreCase("changeteam")) {
 			if (!(sender instanceof Player)) {
@@ -33,6 +29,7 @@ public class TeamsGui implements CommandExecutor, Listener {
 				return true;
 			}
 			Player player = (Player)sender;
+			System.out.println(inv.getItem(8).getItemMeta().getDisplayName());
 			player.openInventory(inv);
 			return true;
 		}
@@ -87,6 +84,7 @@ public class TeamsGui implements CommandExecutor, Listener {
 	}
 	
 	public void createInv() {
+		System.out.println("ALED JE SUIS LA");
 		inv = Bukkit.createInventory(null, 9, ChatColor.GREEN + "" + ChatColor.BOLD + "Select your team");
 		ItemStack item = new ItemStack(Material.BLUE_CONCRETE);
 		ItemMeta meta = item.getItemMeta();
@@ -112,5 +110,6 @@ public class TeamsGui implements CommandExecutor, Listener {
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		inv.setItem(8, item);
+		System.out.println(inv.getItem(8).getItemMeta().getDisplayName());
 	}
 }

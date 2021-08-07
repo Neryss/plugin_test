@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -53,7 +54,6 @@ public class VoidLily implements Listener {
 		meta.addEnchant(Enchantment.LUCK, 1, true);
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		meta.setUnbreakable(true);
 		voidLily.setItemMeta(meta);
 		return voidLily;
 	}
@@ -65,7 +65,13 @@ public class VoidLily implements Listener {
 				Player player = (Player)e.getPlayer();
 				if (e.getAction() == Action.RIGHT_CLICK_AIR) {
 					Block block = player.getTargetBlock(null, 40);
-					player.teleport(block.getLocation());
+					float yaw = player.getEyeLocation().getYaw();
+					float pitch = player.getEyeLocation().getPitch();
+					Location tp = block.getLocation();
+					tp.setPitch(pitch);
+					tp.setYaw(yaw);
+					tp.setY(block.getLocation().getY() + 1);
+					player.teleport(tp);
 					player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 5, 5);
 				}
 			}

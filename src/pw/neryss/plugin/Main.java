@@ -31,6 +31,7 @@ public class Main extends JavaPlugin implements Listener {
 		this.getServer().getPluginManager().registerEvents(new Staff(), this);
 		this.getServer().getPluginManager().registerEvents(new TeamsGui(), this);
 		this.getServer().getPluginManager().registerEvents(new Deaths(), this);
+		this.getServer().getPluginManager().registerEvents(new VoidLily(), this);
 		t_gui = new TeamsGui();
 		t_gui.createInv();
 	}

@@ -45,5 +45,4 @@ public class Heal implements CommandExecutor {
 		}
 		return false;
 	}
-
 }

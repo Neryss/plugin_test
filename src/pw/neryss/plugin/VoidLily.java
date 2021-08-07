@@ -70,7 +70,9 @@ public class VoidLily implements Listener {
 					Location tp = block.getLocation();
 					tp.setPitch(pitch);
 					tp.setYaw(yaw);
-					tp.setY(block.getLocation().getY() + 1);
+					if ((tp.add(0, 1, 0).getBlock().getType().equals(Material.AIR)
+							&& tp.add(0, 1, 0).getBlock().getType().equals(Material.AIR)))
+						tp.setY(block.getLocation().getY() + 1);
 					player.teleport(tp);
 					player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 5, 5);
 				}

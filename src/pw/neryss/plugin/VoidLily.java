@@ -1,9 +1,9 @@
 package pw.neryss.plugin;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-import java.util.Vector;
 import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
@@ -64,19 +64,26 @@ public class VoidLily implements Listener {
 	public void onClick(PlayerInteractEvent e) {
 		if (e.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.LILY_OF_THE_VALLEY))
 			if (e.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()) {
-				if (e.getAction() == Action.RIGHT_CLICK_AIR) {
+				if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 					// Need to check that
+					e.setCancelled(true);
+					Location pLoc = e.getPlayer().getEyeLocation();
+					float yaw = e.getPlayer().getEyeLocation().getYaw();
+					float pitch = e.getPlayer().getEyeLocation().getPitch();
 					List<BoundingBox> allBBs = Bukkit.getOnlinePlayers().stream()
 							.filter(player -> !player.equals(e.getPlayer()))
+							.sorted(Comparator.comparingDouble(player -> player.getLocation().distanceSquared(pLoc)))
 							.map(Entity::getBoundingBox)
 							.collect(Collectors.toList());
-					Location pLoc = e.getPlayer().getEyeLocation();
 					org.bukkit.util.Vector pdir = pLoc.getDirection();
 					for (double d = 0; d < 50; d += 0.001) {
 						org.bukkit.util.Vector ray = pLoc.clone().toVector().add(pdir.clone().multiply(d));
 						for (BoundingBox BBs : allBBs) {
 							if (BBs.overlaps(ray, ray)) {
-								e.getPlayer().teleport(ray.toLocation(e.getPlayer().getWorld()));
+								Location tpLoc = ray.toLocation(e.getPlayer().getWorld());
+								tpLoc.setYaw(yaw);
+								tpLoc.setPitch(pitch);
+								e.getPlayer().teleport(tpLoc);
 								break;
 							}
 						}

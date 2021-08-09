@@ -3,15 +3,16 @@ package pw.neryss.plugin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
+import java.util.stream.Collectors;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -20,6 +21,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.BoundingBox;
 
 public class VoidLily implements Listener {
 	
@@ -62,19 +64,24 @@ public class VoidLily implements Listener {
 	public void onClick(PlayerInteractEvent e) {
 		if (e.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.LILY_OF_THE_VALLEY))
 			if (e.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()) {
-				Player player = (Player)e.getPlayer();
 				if (e.getAction() == Action.RIGHT_CLICK_AIR) {
-					Block block = player.getTargetBlock(null, 40);
-					float yaw = player.getEyeLocation().getYaw();
-					float pitch = player.getEyeLocation().getPitch();
-					Location tp = block.getLocation();
-					tp.setPitch(pitch);
-					tp.setYaw(yaw);
-					if ((tp.add(0, 1, 0).getBlock().getType().equals(Material.AIR)
-							&& tp.add(0, 1, 0).getBlock().getType().equals(Material.AIR)))
-						tp.setY(block.getLocation().getY() + 1);
-					player.teleport(tp);
-					player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 5, 5);
+					// Need to check that
+					List<BoundingBox> allBBs = Bukkit.getOnlinePlayers().stream()
+							.filter(player -> !player.equals(e.getPlayer()))
+							.map(Entity::getBoundingBox)
+							.collect(Collectors.toList());
+					Location pLoc = e.getPlayer().getEyeLocation();
+					org.bukkit.util.Vector pdir = pLoc.getDirection();
+					for (double d = 0; d < 50; d += 0.001) {
+						org.bukkit.util.Vector ray = pLoc.clone().toVector().add(pdir.clone().multiply(d));
+						for (BoundingBox BBs : allBBs) {
+							if (BBs.overlaps(ray, ray)) {
+								e.getPlayer().teleport(ray.toLocation(e.getPlayer().getWorld()));
+								break;
+							}
+						}
+					}
+					
 				}
 			}
 	}

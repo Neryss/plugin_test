@@ -6,12 +6,12 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -76,13 +76,11 @@ public class Staff implements CommandExecutor, Listener {
 						list.add(player.getName());
 					return ;
 				}
-				if (e.getAction() == Action.LEFT_CLICK_AIR) {
-					player.launchProjectile(Fireball.class);
-				}
+				if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK)
+					player.getWorld().strikeLightning(player.getTargetBlock(null, 200).getLocation());
 			}
-		if (list.contains(e.getPlayer().getName())) {
+		if (list.contains(e.getPlayer().getName()))
 			list.remove(e.getPlayer().getName());
-		}
 	}
 	
 	@EventHandler

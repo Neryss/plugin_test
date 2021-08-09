@@ -65,7 +65,6 @@ public class VoidLily implements Listener {
 		if (e.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.LILY_OF_THE_VALLEY))
 			if (e.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()) {
 				if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-					// Need to check that
 					e.setCancelled(true);
 					Location pLoc = e.getPlayer().getEyeLocation();
 					float yaw = e.getPlayer().getEyeLocation().getYaw();

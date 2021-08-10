@@ -2,7 +2,9 @@ package pw.neryss.plugin;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -10,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -24,7 +27,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.BoundingBox;
 
 public class VoidLily implements Listener {
-	
+	Map<String, Long> cooldowns = new HashMap<String, Long>();
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
 		if (checkFlower(e)) {
@@ -51,7 +54,7 @@ public class VoidLily implements Listener {
 		List<String> lore = new ArrayList<String>();
 		lore.add("");
 		lore.add(ChatColor.DARK_BLUE + "You've been blessed with a special lily");
-		lore.add(ChatColor.GOLD + "(Right click) Teleports you to the aimed position");
+		lore.add(ChatColor.GOLD + "(Right click) Teleports you to a player");
 		meta.setLore(lore);
 		meta.addEnchant(Enchantment.LUCK, 1, true);
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -79,10 +82,19 @@ public class VoidLily implements Listener {
 						org.bukkit.util.Vector ray = pLoc.clone().toVector().add(pdir.clone().multiply(d));
 						for (BoundingBox BBs : allBBs) {
 							if (BBs.overlaps(ray, ray)) {
+								if (cooldowns.containsKey(e.getPlayer().getName())) {
+									if (cooldowns.get(e.getPlayer().getName()) > System.currentTimeMillis()) {
+										long remain = (cooldowns.get(e.getPlayer().getName()) - System.currentTimeMillis()) / 1000;
+										e.getPlayer().sendMessage(ChatColor.RED + "Remaining cooldowns: " + remain + "s");
+										return ;
+									}
+								}
+								cooldowns.put(e.getPlayer().getName(), System.currentTimeMillis() + (5 * 1000));
 								Location tpLoc = ray.toLocation(e.getPlayer().getWorld());
 								tpLoc.setYaw(yaw);
 								tpLoc.setPitch(pitch);
 								e.getPlayer().teleport(tpLoc);
+								e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 5, 5);
 								break;
 							}
 						}

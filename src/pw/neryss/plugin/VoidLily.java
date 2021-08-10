@@ -21,6 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -65,7 +66,8 @@ public class VoidLily implements Listener {
 	
 	@EventHandler
 	public void onClick(PlayerInteractEvent e) {
-		if (e.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.LILY_OF_THE_VALLEY))
+		if (e.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.LILY_OF_THE_VALLEY)
+				&& !e.getHand().equals(EquipmentSlot.OFF_HAND))
 			if (e.getPlayer().getInventory().getItemInMainHand().getItemMeta().hasLore()) {
 				if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 					e.setCancelled(true);
@@ -95,7 +97,7 @@ public class VoidLily implements Listener {
 								tpLoc.setPitch(pitch);
 								e.getPlayer().teleport(tpLoc);
 								e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 5, 5);
-								break;
+								break ;
 							}
 						}
 					}

@@ -14,6 +14,7 @@ The plugin adds the following commands (that you can find in the [plugin.yml](pl
 ```
 
 It also adds an item that has a chance to randomly drop from flowers in the wild : the Void Lily, which is a WIP teleporting item.
+You can use it to teleport to a player from up to 50 blocks away from him, also works through walls.
 
 # Installation
 Just drag and drop the plugin inside your server's plugin folder. You can find it in the release tab. Keep in mind it's a pre release for now!

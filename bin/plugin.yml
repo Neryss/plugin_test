@@ -22,3 +22,5 @@ commands:
       usage: /<command> [name]
    changeteam:
       usage: /<command>
+   lily:
+      usage: /<command> [enable/disable/forcegive]

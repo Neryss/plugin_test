@@ -27,6 +27,7 @@ public class Main extends JavaPlugin implements Listener {
 		this.getCommand("starstaff").setExecutor(new Staff());
 		this.getCommand("skull").setExecutor(new Skulls());
 		this.getCommand("changeteam").setExecutor(new TeamsGui());
+		this.getCommand("lily").setExecutor(new VoidLily());
 		this.getServer().getPluginManager().registerEvents(new Boots(), this);
 		this.getServer().getPluginManager().registerEvents(new Staff(), this);
 		this.getServer().getPluginManager().registerEvents(new TeamsGui(), this);

@@ -34,6 +34,7 @@ import org.bukkit.util.BoundingBox;
 public class VoidLily implements CommandExecutor, Listener {
 	Map<String, Long> cooldowns = new HashMap<String, Long>();
 	boolean	_activated = true;
+	long cd = 10;
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(label.equalsIgnoreCase("lily")) {
 			if (sender instanceof Player) {
@@ -51,17 +52,17 @@ public class VoidLily implements CommandExecutor, Listener {
 					return true;
 				}
 				else if (args[0].equalsIgnoreCase("forcegive")) {
-						if (player.hasPermission("voidlily.use")) {
-							if (player.getInventory().firstEmpty() == -1) {
-								World world = player.getWorld();
-								world.dropItem(player.getLocation(), getItem());
-								player.sendMessage(ChatColor.GOLD + "You received your lily");
-								return true;							
-							}
-							else {
-								player.getInventory().addItem(getItem());
-								player.sendMessage(ChatColor.GOLD + "You received your lily");
-								return true;
+					if (player.hasPermission("voidlily.use")) {
+						if (player.getInventory().firstEmpty() == -1) {
+							World world = player.getWorld();
+							world.dropItem(player.getLocation(), getItem());
+							player.sendMessage(ChatColor.GOLD + "You received your lily");
+							return true;							
+						}
+						else {
+							player.getInventory().addItem(getItem());
+							player.sendMessage(ChatColor.GOLD + "You received your lily");
+							return true;
 						}
 					}
 				}
@@ -97,6 +98,8 @@ public class VoidLily implements CommandExecutor, Listener {
 		lore.add("");
 		lore.add(ChatColor.DARK_BLUE + "You've been blessed with a special lily");
 		lore.add(ChatColor.GOLD + "(Right click) Teleports you to a player");
+		lore.add("");
+		lore.add(ChatColor.MAGIC + "Has a " + ChatColor.BLUE + "" + ChatColor.BOLD + cd + ChatColor.MAGIC + " cooldown");
 		meta.setLore(lore);
 		meta.addEnchant(Enchantment.LUCK, 1, true);
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -132,7 +135,7 @@ public class VoidLily implements CommandExecutor, Listener {
 										return ;
 									}
 								}
-								cooldowns.put(e.getPlayer().getName(), System.currentTimeMillis() + (5 * 1000));
+								cooldowns.put(e.getPlayer().getName(), System.currentTimeMillis() + (cd * 1000));
 								Location tpLoc = ray.toLocation(e.getPlayer().getWorld());
 								tpLoc.setYaw(yaw);
 								tpLoc.setPitch(pitch);

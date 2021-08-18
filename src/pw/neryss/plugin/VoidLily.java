@@ -34,7 +34,7 @@ import org.bukkit.util.BoundingBox;
 public class VoidLily implements CommandExecutor, Listener {
 	Map<String, Long> cooldowns = new HashMap<String, Long>();
 	boolean	_activated = true;
-	long cd = 10;
+	static long cd = 10;
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(label.equalsIgnoreCase("lily")) {
 			if (sender instanceof Player) {
@@ -93,13 +93,12 @@ public class VoidLily implements CommandExecutor, Listener {
 		ItemStack voidLily = new ItemStack(Material.LILY_OF_THE_VALLEY);
 		ItemMeta meta = voidLily.getItemMeta();
 		meta.setDisplayName(ChatColor.DARK_PURPLE + "Void Lily");
-		
 		List<String> lore = new ArrayList<String>();
 		lore.add("");
-		lore.add(ChatColor.DARK_BLUE + "You've been blessed with a special lily");
+		lore.add(ChatColor.LIGHT_PURPLE + "You've been blessed with a special lily");
 		lore.add(ChatColor.GOLD + "(Right click) Teleports you to a player");
 		lore.add("");
-		lore.add(ChatColor.MAGIC + "Has a " + ChatColor.BLUE + "" + ChatColor.BOLD + cd + ChatColor.MAGIC + " cooldown");
+		lore.add(ChatColor.LIGHT_PURPLE + "Has a " + ChatColor.BLUE + "" + ChatColor.BOLD + "" + cd + "s" + ChatColor.LIGHT_PURPLE + " cooldown");
 		meta.setLore(lore);
 		meta.addEnchant(Enchantment.LUCK, 1, true);
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);

@@ -34,35 +34,34 @@ import org.bukkit.util.BoundingBox;
 public class VoidLily implements CommandExecutor, Listener {
 	Map<String, Long> cooldowns = new HashMap<String, Long>();
 	boolean	_activated = true;
-	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(label.equalsIgnoreCase("lily")) {
-			System.out.println("aled");
 			if (sender instanceof Player) {
 				Player player = (Player)sender;
-			if (args[0].equalsIgnoreCase("disable")) {
-				player.sendMessage("Lily disabled" + _activated);
-				_activated = false;
-				player.sendMessage("Lily disabled" + _activated);
-				return true;
-			}
-			else if (args[0].equalsIgnoreCase("enable")) {
-				player.sendMessage("Lily enabled");
-				_activated = true;
-				return true;
-			}
-			else if (args[0].equalsIgnoreCase("forcegive")) {
-					if (player.hasPermission("voidlily.use")) {
-						if (player.getInventory().firstEmpty() == -1) {
-							World world = player.getWorld();
-							world.dropItem(player.getLocation(), getItem());
-							player.sendMessage(ChatColor.GOLD + "You received your lily");
-							return true;							
-						}
-						else {
-							player.getInventory().addItem(getItem());
-							player.sendMessage(ChatColor.GOLD + "You received your lily");
-							return true;
+				if (args.length == 0)
+					return false;
+				if (args[0].equalsIgnoreCase("disable")) {
+					player.sendMessage("Lily disabled drop disbled!");
+					_activated = false;
+					return true;
+				}
+				else if (args[0].equalsIgnoreCase("enable")) {
+					player.sendMessage("Lily enabled drop enabled!");
+					_activated = true;
+					return true;
+				}
+				else if (args[0].equalsIgnoreCase("forcegive")) {
+						if (player.hasPermission("voidlily.use")) {
+							if (player.getInventory().firstEmpty() == -1) {
+								World world = player.getWorld();
+								world.dropItem(player.getLocation(), getItem());
+								player.sendMessage(ChatColor.GOLD + "You received your lily");
+								return true;							
+							}
+							else {
+								player.getInventory().addItem(getItem());
+								player.sendMessage(ChatColor.GOLD + "You received your lily");
+								return true;
 						}
 					}
 				}
@@ -74,7 +73,6 @@ public class VoidLily implements CommandExecutor, Listener {
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
 		if (checkFlower(e) && _activated) {
-			System.out.println("activated " + _activated);
 			Random r = new Random();
 			int res = r.nextInt(100);
 			if (res <= 15) {
